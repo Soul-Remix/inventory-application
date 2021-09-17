@@ -4,7 +4,7 @@ const Product = require('../models/product');
 // Index controller
 
 const index = (req, res) => {
-  res.send('not implemented');
+  res.render('index', { title: 'Title' });
 };
 
 // Category controller
