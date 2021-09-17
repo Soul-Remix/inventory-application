@@ -46,3 +46,15 @@ const category_delete_get = (req, res) => {
 const category_delete_post = (req, res) => {
   res.send('not implemented');
 };
+
+module.exports = {
+  index,
+  category_list,
+  category_detail,
+  category_create_get,
+  category_create_post,
+  category_update_get,
+  category_update_post,
+  category_delete_get,
+  category_delete_post,
+};
