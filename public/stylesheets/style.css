@@ -6,6 +6,7 @@
     rgba(32, 45, 58, 1) 81.3%
   );
   --hover: #34d399;
+  --red: #ef4444;
 }
 
 *,
@@ -17,6 +18,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: monospace;
 }
 
 a {
@@ -194,5 +196,71 @@ nav ul li ul:hover {
 
   nav ul li ul {
     padding: 0;
+  }
+}
+
+/***********************/
+/*        Main         */
+/***********************/
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  width: 95%;
+  text-align: center;
+  font-weight: bold;
+}
+
+main h2 {
+  font-size: 1.6rem;
+  margin-bottom: 35px;
+  color: var(--hover);
+}
+
+.container {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 25px;
+  grid-auto-columns: 1fr;
+}
+
+.card {
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: none;
+  border-radius: 15px;
+}
+
+.card img {
+  width: 18rem;
+  height: 15rem;
+  object-fit: cover;
+  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+  border-radius: 15px;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.card img:hover {
+  transform: scale(1.1);
+}
+
+.inv {
+  font-size: 1.2rem;
+}
+
+.alert {
+  color: var(--red);
+}
+
+.count {
+  color: var(--red);
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
   }
 }

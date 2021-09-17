@@ -3,8 +3,29 @@ const Product = require('../models/product');
 
 // Index controller
 
-const index = (req, res) => {
-  res.render('index', { title: 'Title' });
+const index = async (req, res, next) => {
+  try {
+    const [categoriesCount, productsCount, products] = await Promise.all([
+      Category.countDocuments({}),
+      Product.countDocuments({}),
+      Product.find(),
+    ]);
+    const allProductsCount = products.reduce((a, b) => {
+      return a + b.inStock;
+    }, 0);
+    const runningLow = products.filter((item) => {
+      return item.inStock < 5;
+    });
+    res.render('index', {
+      title: 'Home Page',
+      categoriesCount,
+      productsCount,
+      allProductsCount,
+      runningLow,
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // Category controller
