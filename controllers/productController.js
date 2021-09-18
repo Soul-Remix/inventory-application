@@ -3,13 +3,27 @@ const Product = require('../models/product');
 
 // Product Controller
 
-const product_list = async (req, res) => {
-  const products = await Product.find();
-  res.render('products', { title: 'All Products', products });
+const product_list = async (req, res, next) => {
+  try {
+    const products = await Product.find();
+    res.render('products', { title: 'All Products', products });
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const product_detail = (req, res) => {
-  res.send('not implemented');
+const product_detail = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('category');
+    if (!product) {
+      const err = new Error('Product Not found');
+      err.status = 404;
+      return next(err);
+    }
+    res.render('product-detail', { title: 'Product Detail', product });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // Create Product

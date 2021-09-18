@@ -37,6 +37,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 35px;
 }
 
 .header {
@@ -45,6 +46,12 @@ nav {
   margin: 0;
   padding: 10px;
   z-index: 2;
+}
+
+@media screen and (max-width: 300px) {
+  .header {
+    font-size: 1.8rem;
+  }
 }
 
 .header a {
@@ -248,6 +255,16 @@ main h2 {
   transform: scale(1.1);
 }
 
+@media screen and (min-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/***********************/
+/*         Util        */
+/***********************/
+
 .inv {
   font-size: 1.2rem;
 }
@@ -266,10 +283,9 @@ main h2 {
   font-size: 1.2rem;
 }
 
-@media screen and (min-width: 768px) {
-  .container {
-    grid-template-columns: 1fr 1fr;
-  }
+.category {
+  color: var(--nav-background);
+  font-size: 1.2rem;
 }
 
 .center {
@@ -292,7 +308,7 @@ main h2 {
   padding: 10px;
 }
 
-.flex-between {
+.flex-around {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -309,4 +325,26 @@ main h2 {
 
 .update-link:hover {
   background: var(--hover);
+}
+
+.margin-bottom {
+  margin-bottom: 40px;
+}
+
+.para-50 {
+  max-width: 50ch;
+}
+
+.card-img {
+  width: 18rem;
+  height: 15rem;
+  object-fit: cover;
+  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+  border-radius: 15px;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.card-img:hover {
+  transform: scale(1.1);
 }
