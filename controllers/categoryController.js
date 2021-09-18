@@ -30,13 +30,35 @@ const index = async (req, res, next) => {
 
 // Category controller
 
-const category_list = async (req, res) => {
-  const categories = await Category.find();
-  res.render('categories', { title: 'All Categories', categories });
+const category_list = async (req, res, next) => {
+  try {
+    const categories = await Category.find();
+    res.render('categories', { title: 'All Categories', categories });
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const category_detail = (req, res) => {
-  res.send('not implemented');
+const category_detail = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const [category, products] = await Promise.all([
+      Category.findById(id),
+      Product.find({ category: id }),
+    ]);
+    if (!category) {
+      const err = new Error('Category not found');
+      err.status = 404;
+      return next(err);
+    }
+    res.render('category-detail', {
+      title: 'Category Detail',
+      category,
+      products,
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // Create Category

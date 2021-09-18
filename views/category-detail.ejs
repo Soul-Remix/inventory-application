@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="../javascripts/script.js" defer></script>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <main>
+            <div>
+                <h2>
+                    <%= category.name %>
+                </h2>
+                <div class="flex-between">
+                    <a href=<%=category.url %>/update class="update-link">Update Category</a>
+                    <a href=<%=category.url %>/delete class="update-link">Delete Category</a>
+                </div>
+            </div>
+            <section>
+                <h3>Products in Category</h3>
+                <div class="container">
+                    <% products.forEach(function(item) { %>
+                        <div class="card">
+                            <a href=<%=item.url %>><img src=<%=item.image %> alt=<%=item.title %>></a>
+                            <p>
+                                <%= item.title %>
+                            </p>
+                            <p>
+                                <%= item.description %>
+                            </p>
+                            <p class="count">Count: <%= item.inStock %>
+                            </p>
+                            <p class="price">Price: <%= item.price %>
+                            </p>
+                        </div>
+                        <% }); %>
+                </div>
+            </section>
+        </main>
+</body>
+
+</html>

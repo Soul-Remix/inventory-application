@@ -291,3 +291,22 @@ main h2 {
   font-size: 1.4rem;
   padding: 10px;
 }
+
+.flex-between {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.update-link {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--nav-background);
+  color: white;
+}
+
+.update-link:hover {
+  background: var(--hover);
+}
