@@ -30,8 +30,9 @@ const index = async (req, res, next) => {
 
 // Category controller
 
-const category_list = (req, res) => {
-  res.send('not implemented');
+const category_list = async (req, res) => {
+  const categories = await Category.find();
+  res.render('categories', { title: 'All Categories', categories });
 };
 
 const category_detail = (req, res) => {

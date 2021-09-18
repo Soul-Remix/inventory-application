@@ -3,8 +3,9 @@ const Product = require('../models/product');
 
 // Product Controller
 
-const product_list = (req, res) => {
-  res.send('not implemented');
+const product_list = async (req, res) => {
+  const products = await Product.find();
+  res.render('products', { title: 'All Products', products });
 };
 
 const product_detail = (req, res) => {

@@ -167,6 +167,7 @@ nav ul li ul:hover {
 @media screen and (min-width: 1024px) {
   nav {
     justify-content: space-around;
+    margin-bottom: 30px;
   }
 
   .header {
@@ -230,6 +231,7 @@ main h2 {
   overflow: hidden;
   border: none;
   border-radius: 15px;
+  text-align: center;
 }
 
 .card img {
@@ -259,8 +261,33 @@ main h2 {
   font-size: 1.2rem;
 }
 
+.price {
+  color: var(--hover);
+  font-size: 1.2rem;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+}
+
+.big-padding {
+  padding: 5%;
+}
+
+.categories-head {
+  font-size: 2.4rem;
+}
+
+.categories-ul li {
+  font-size: 1.4rem;
+  padding: 10px;
 }

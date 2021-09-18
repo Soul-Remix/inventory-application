@@ -11,8 +11,8 @@ const ProductSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
 });
 
-ProductSchema.virtual('url').get(() => {
-  return `/product/${this._id}`;
+ProductSchema.virtual('url').get(function () {
+  return '/product/' + this._id;
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
