@@ -1,5 +1,6 @@
 const Category = require('../models/category');
 const Product = require('../models/product');
+const { body, validationResult } = require('express-validator');
 
 // Index controller
 
@@ -64,12 +65,56 @@ const category_detail = async (req, res, next) => {
 // Create Category
 
 const category_create_get = (req, res) => {
-  res.send('not implemented');
+  res.render('category-create', {
+    title: 'Create Category',
+    category: {},
+    errors: [],
+  });
 };
 
-const category_create_post = (req, res) => {
-  res.send('not implemented');
-};
+const category_create_post = [
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Category Name is required'),
+  body('pass')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Password is required'),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      const category = new Category({
+        name: req.body.name,
+      });
+      if (!errors.isEmpty()) {
+        res.render('category-create', {
+          title: 'Create Category',
+          category,
+          errors: errors.array(),
+        });
+      } else if (req.body.pass !== process.env.PASS) {
+        res.render('category-create', {
+          title: 'Create Category',
+          category,
+          errors: ["Password Doesn't Match"],
+        });
+      } else {
+        const isAvail = await Category.findOne({ name: req.body.name });
+        if (isAvail) {
+          res.redirect(isAvail.url);
+        } else {
+          await category.save();
+          res.redirect(`/category/${category._id}`);
+        }
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
 
 // Update Category
 

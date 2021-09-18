@@ -241,7 +241,7 @@ main h2 {
   text-align: center;
 }
 
-.card img {
+.card-img {
   width: 18rem;
   height: 15rem;
   object-fit: cover;
@@ -251,7 +251,7 @@ main h2 {
   overflow: hidden;
 }
 
-.card img:hover {
+.card-img:hover {
   transform: scale(1.1);
 }
 
@@ -321,6 +321,7 @@ main h2 {
   border-radius: 10px;
   background: var(--nav-background);
   color: white;
+  cursor: pointer;
 }
 
 .update-link:hover {
@@ -333,18 +334,4 @@ main h2 {
 
 .para-50 {
   max-width: 50ch;
-}
-
-.card-img {
-  width: 18rem;
-  height: 15rem;
-  object-fit: cover;
-  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
-  border-radius: 15px;
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
-.card-img:hover {
-  transform: scale(1.1);
 }

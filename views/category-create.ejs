@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="../javascripts/script.js" defer></script>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <main>
+            <section>
+                <% if(errors) {%>
+                    <div class="form-errors">
+                        <ul>
+                            <% errors.forEach((error)=>{ %>
+                                <li>
+                                    <%= error %>
+                                </li>
+                                <%}) %>
+                        </ul>
+                    </div>
+                    <% } %>
+                        <form action="" method="Post">
+                            <label for="name">Category Name:</label>
+                            <input type="text" name="name" id="name" required value=<%=category.name ? category.name
+                                : '' %>>
+                            <label for="pass">Master Password:</label>
+                            <input type="text" name="pass" id="pass" required>
+                            <button type="submit" class="update-link">Submit</button>
+                        </form>
+            </section>
+        </main>
+</body>
+
+</html>

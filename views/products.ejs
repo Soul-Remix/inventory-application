@@ -19,7 +19,7 @@
             <div class="container">
                 <% products.forEach(function(item) { %>
                     <div class="card">
-                        <a href=<%=item.url %>><img src=<%=item.image %> alt=<%=item.title %>></a>
+                        <a href=<%=item.url %>><img class="card-img" src=<%=item.image %> alt=<%=item.title %>></a>
                         <p>
                             <%= item.title %>
                         </p>

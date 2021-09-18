@@ -19,7 +19,7 @@
         <h2>Current Inventory</h2>
         <div class="container inv">
           <div class="card">
-            <a href="/products"><img src="images/num-products.jpg" alt=""></a>
+            <a href="/products"><img class="card-img" src="images/num-products.jpg" alt=""></a>
             <div class="flex">
               <p>Products: <%= productsCount %>
               </p>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="card">
-            <a href="/Categories"><img src="images/num-categories.png" alt=""></a>
+            <a href="/Categories"><img class="card-img" src="images/num-categories.png" alt=""></a>
             <p>Categories: <%= categoriesCount %>
             </p>
           </div>
@@ -39,7 +39,7 @@
         <div class="container">
           <% runningLow.forEach(function(item) { %>
             <div class="card">
-              <a href=<%=item.url %>><img src=<%=item.image %> alt=<%=item.title %>></a>
+              <a href=<%=item.url %>><img class="card-img" src=<%=item.image %> alt=<%=item.title %>></a>
               <p>
                 <%= item.title %>
               </p>
