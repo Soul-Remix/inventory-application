@@ -122,9 +122,7 @@ const product_update_get = async (req, res, next) => {
       Category.find(),
     ]);
     if (!product) {
-      const err = new Error('Product not found');
-      err.status = 404;
-      return next(err);
+      res.redirect('/products');
     } else {
       res.render('product-update', {
         title: 'Update product',
@@ -183,9 +181,7 @@ const product_update_post = [
         Category.find(),
       ]);
       if (!productFound) {
-        const err = new Error('Product not found');
-        err.status = 404;
-        return next(err);
+        res.redirect('/products');
       } else if (!errors.isEmpty()) {
         res.render('product-update', {
           title: 'Update Product',
@@ -216,9 +212,7 @@ const product_delete_get = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate('category');
     if (!product) {
-      const err = new Error('Product not found');
-      err.status = 404;
-      return next(err);
+      res.redirect('/products');
     } else {
       res.render('product-delete', { title: 'Delete Product', product });
     }
@@ -231,9 +225,7 @@ const product_delete_post = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate('category');
     if (!product) {
-      const err = new Error('Product not found');
-      err.status = 404;
-      return next(err);
+      res.redirect('/products');
     } else {
       await Product.findByIdAndDelete(req.params.id);
       res.redirect('/products');

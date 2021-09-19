@@ -122,9 +122,7 @@ const category_update_get = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
     if (!category) {
-      const err = new Error('Category Not founc');
-      err.status = 404;
-      return next(err);
+      res.redirect('/categories');
     }
     res.render('category-update', {
       title: 'Update Category',
@@ -185,9 +183,7 @@ const category_delete_get = async (req, res, next) => {
       Product.find({ category: req.params.id }),
     ]);
     if (!category) {
-      const err = new Error('Category not found');
-      err.status = 404;
-      return next(err);
+      res.redirect('/categories');
     } else {
       res.render('category-delete', {
         title: 'Delete Category',
@@ -208,9 +204,7 @@ const category_delete_post = async (req, res, next) => {
       Product.find({ category: req.params.id }),
     ]);
     if (!category) {
-      const err = new Error('Category not found');
-      err.status = 404;
-      return next(err);
+      res.redirect('/categories');
     } else if (req.body.pass !== process.env.PASS) {
       res.render('category-delete', {
         title: 'Delete Category',
