@@ -118,13 +118,58 @@ const category_create_post = [
 
 // Update Category
 
-const category_update_get = (req, res) => {
-  res.send('not implemented');
+const category_update_get = async (req, res, next) => {
+  try {
+    const category = await Category.findById(req.params.id);
+    res.render('category-update', {
+      title: 'Update Category',
+      category,
+      errors: [],
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const category_update_post = (req, res) => {
-  res.send('not implemented');
-};
+const category_update_post = [
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Enter a valid category name'),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      const category = new Category({
+        name: req.body.name,
+        _id: req.params.id,
+      });
+      if (!errors.isEmpty()) {
+        res.render('category-update', {
+          title: 'Create Category',
+          category,
+          errors: errors.array(),
+        });
+      } else if (req.body.pass !== process.env.PASS) {
+        res.render('category-create', {
+          title: 'Create Category',
+          category,
+          errors: ["Password Doesn't Match"],
+        });
+      } else {
+        const isAvail = await Category.findOne({ name: req.body.name });
+        if (isAvail) {
+          res.redirect(isAvail.url);
+        } else {
+          await Category.findByIdAndUpdate(req.params.id, category);
+          res.redirect(`/category/${category._id}`);
+        }
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
 
 // Delete Category
 
