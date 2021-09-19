@@ -322,6 +322,7 @@ main h2 {
   background: var(--nav-background);
   color: white;
   cursor: pointer;
+  margin-top: 30px;
 }
 
 .update-link:hover {
@@ -334,4 +335,33 @@ main h2 {
 
 .para-50 {
   max-width: 50ch;
+}
+
+/***********************/
+/*        Form        */
+/***********************/
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+form input,
+form textarea {
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 2px 5px;
+  margin: 5px;
+  width: 75%;
+  max-width: 550px;
+}
+
+select {
+  width: 75%;
+  max-width: 550px;
+  margin: 5px;
+  padding: 2px 5px;
 }
