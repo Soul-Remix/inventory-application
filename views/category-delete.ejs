@@ -31,11 +31,12 @@
                 </div>
                 <% } %>
                     <form action="" method="POST">
-                        <label for="pass">Master Password</label>
+                        <label for="pass">Master Password:</label>
                         <input type="password" name="pass" id="pass" required>
                         <button type="submit" class="update-link">Delete</button>
                     </form>
                     <% if(products.length> 0) { %>
+                        <h2 class="alert">You have to delete this items before deleting this category.</h2>
                         <div class="container">
                             <% products.forEach(function(item) { %>
                                 <div class="card">

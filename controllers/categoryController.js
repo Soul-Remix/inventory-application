@@ -182,7 +182,7 @@ const category_delete_get = async (req, res, next) => {
   try {
     const [category, products] = await Promise.all([
       Category.findById(req.params.id),
-      Product.find({ _id: req.params.id }),
+      Product.find({ category: req.params.id }),
     ]);
     if (!category) {
       const err = new Error('Category not found');
@@ -205,7 +205,7 @@ const category_delete_post = async (req, res, next) => {
   try {
     const [category, products] = await Promise.all([
       Category.findById(req.params.id),
-      Product.find({ _id: req.params.id }),
+      Product.find({ category: req.params.id }),
     ]);
     if (!category) {
       const err = new Error('Category not found');
@@ -215,8 +215,15 @@ const category_delete_post = async (req, res, next) => {
       res.render('category-delete', {
         title: 'Delete Category',
         category,
-        product,
+        products,
         errors: ["Password Doesn't Match"],
+      });
+    } else if (products.length > 0) {
+      res.render('category-delete', {
+        title: 'Delete Category',
+        category,
+        products,
+        errors: ['Make sure to delete all products in selected category first'],
       });
     } else {
       await Category.findByIdAndDelete(req.params.id);
