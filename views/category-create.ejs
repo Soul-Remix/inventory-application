@@ -29,8 +29,8 @@
                     <% } %>
                         <form action="" method="Post">
                             <label for="name">Category Name:</label>
-                            <input type="text" name="name" id="name" required value=<%=category.name ? category.name
-                                : '' %>>
+                            <textarea type="text" name="name" id="name"
+                                required><%=category.name ? category.name : '' %></textarea>
                             <label for="pass">Master Password:</label>
                             <input type="text" name="pass" id="pass" required>
                             <button type="submit" class="update-link">Submit</button>
