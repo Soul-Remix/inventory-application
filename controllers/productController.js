@@ -1,12 +1,15 @@
 const Category = require('../models/category');
 const Product = require('../models/product');
 const { body, validationResult } = require('express-validator');
+const { findById } = require('../models/category');
 
 // Product Controller
 
 const product_list = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find()
+      .populate('category')
+      .sort({ category: 1 });
     res.render('products', { title: 'All Products', products });
   } catch (err) {
     return next(err);
@@ -209,12 +212,35 @@ const product_update_post = [
 
 // Delete Product
 
-const product_delete_get = (req, res) => {
-  res.send('not implemented');
+const product_delete_get = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('category');
+    if (!product) {
+      const err = new Error('Product not found');
+      err.status = 404;
+      return next(err);
+    } else {
+      res.render('product-delete', { title: 'Delete Product', product });
+    }
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const product_delete_post = (req, res) => {
-  res.send('not implemented');
+const product_delete_post = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('category');
+    if (!product) {
+      const err = new Error('Product not found');
+      err.status = 404;
+      return next(err);
+    } else {
+      await Product.findByIdAndDelete(req.params.id);
+      res.redirect('/products');
+    }
+  } catch (err) {
+    return next(err);
+  }
 };
 
 module.exports = {
