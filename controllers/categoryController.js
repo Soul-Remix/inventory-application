@@ -121,7 +121,11 @@ const category_create_post = [
 const category_update_get = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
-    // Missing check
+    if (!category) {
+      const err = new Error('Category Not founc');
+      err.status = 404;
+      return next(err);
+    }
     res.render('category-update', {
       title: 'Update Category',
       category,
@@ -162,7 +166,6 @@ const category_update_post = [
         if (isAvail) {
           res.redirect(isAvail.url);
         } else {
-          // Missing check
           await Category.findByIdAndUpdate(req.params.id, category);
           res.redirect(`/category/${category._id}`);
         }
