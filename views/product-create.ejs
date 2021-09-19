@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="../javascripts/script.js" defer></script>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <main>
+            <section>
+                <% if(errors) {%>
+                    <div class="form-errors">
+                        <ul>
+                            <% errors.forEach((error)=>{ %>
+                                <li>
+                                    <%= error %>
+                                </li>
+                                <%}) %>
+                        </ul>
+                    </div>
+                    <% } %>
+                        <form action="" method="Post">
+                            <label for="title">Product Name:</label>
+                            <input type="text" name="title" id="title" required value=<%=product.title ? product.title
+                                : '' %>>
+                            <label for="description">Product Description:</label>
+                            <input type="text" name="description" id="description" required value=<%=product.description
+                                ? product.description : '' %>>
+                            <label for="category">Category:</label>
+                            <select name="category" id="category">
+                                <% categories.forEach((item)=> { %>
+                                    <option value=<%=item._id %> checked=
+                                        <% if(product.category) {%>
+                                            <%=product.category.name===item.name ? true : false %>
+                                                <% } %>><%=item.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <label for="inStock">In Stock:</label>
+                            <input type="number" name="inStock" id="inStock" required value=<%=product.inStock ?
+                                product.inStock : '' %>>
+                            <label for="price">Price:</label>
+                            <input type="number" name="price" id="price" required value=<%=product.price ? product.price
+                                : '' %>>
+                            <label for="image">Image(URL):</label>
+                            <input type="text" name="image" id="image" required value=<%=product.image ? product.image
+                                : '' %>>
+                            <label for="pass">Master Password</label>
+                            <input type="password" name="pass" id="pass" required>
+                            <button type="submit" class="update-link">Submit</button>
+                        </form>
+            </section>
+        </main>
+</body>
+
+</html>
