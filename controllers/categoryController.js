@@ -173,12 +173,45 @@ const category_update_post = [
 
 // Delete Category
 
-const category_delete_get = (req, res) => {
-  res.send('not implemented');
+const category_delete_get = async (req, res, next) => {
+  try {
+    const [category, products] = await Promise.all([
+      Category.findById(req.params.id),
+      Product.find({ _id: req.params.id }),
+    ]);
+    if (!category) {
+      const err = new Error('Category not found');
+      err.status = 404;
+      return next(err);
+    } else {
+      res.render('category-delete', {
+        title: 'Delete Category',
+        category,
+        products,
+      });
+    }
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const category_delete_post = (req, res) => {
-  res.send('not implemented');
+const category_delete_post = async (req, res, next) => {
+  try {
+    const [category, products] = await Promise.all([
+      Category.findById(req.params.id),
+      Product.find({ _id: req.params.id }),
+    ]);
+    if (!category) {
+      const err = new Error('Category not found');
+      err.status = 404;
+      return next(err);
+    } else {
+      await Category.findByIdAndDelete(req.params.id);
+      res.redirect('/categories');
+    }
+  } catch (err) {
+    return next(err);
+  }
 };
 
 module.exports = {
