@@ -19,28 +19,42 @@
                 <%= category.name %>
             </h2>
             <p>Are you sure you want to delete this category?</p>
-            <form action="" method="POST">
-                <button type="submit" class="update-link">Submit</button>
-            </form>
-            <% if(products.length> 0) { %>
-                <div class="container">
-                    <% products.forEach(function(item) { %>
-                        <div class="card">
-                            <a href=<%=item.url %>><img class="card-img" src=<%=item.image %> alt=<%=item.title %>></a>
-                            <p>
-                                <%= item.title %>
-                            </p>
-                            <p>
-                                <%= item.description %>
-                            </p>
-                            <p class="count">Count: <%= item.inStock %>
-                            </p>
-                            <p class="price">Price: <%= item.price %>
-                            </p>
-                        </div>
-                        <% }); %>
+            <% if(errors) {%>
+                <div class="form-errors">
+                    <ul>
+                        <% errors.forEach((error)=>{ %>
+                            <li>
+                                <%= error %>
+                            </li>
+                            <%}) %>
+                    </ul>
                 </div>
                 <% } %>
+                    <form action="" method="POST">
+                        <label for="pass">Master Password</label>
+                        <input type="password" name="pass" id="pass" required>
+                        <button type="submit" class="update-link">Delete</button>
+                    </form>
+                    <% if(products.length> 0) { %>
+                        <div class="container">
+                            <% products.forEach(function(item) { %>
+                                <div class="card">
+                                    <a href=<%=item.url %>><img class="card-img" src=<%=item.image %> alt=<%=item.title
+                                            %>></a>
+                                    <p>
+                                        <%= item.title %>
+                                    </p>
+                                    <p>
+                                        <%= item.description %>
+                                    </p>
+                                    <p class="count">Count: <%= item.inStock %>
+                                    </p>
+                                    <p class="price">Price: <%= item.price %>
+                                    </p>
+                                </div>
+                                <% }); %>
+                        </div>
+                        <% } %>
         </main>
 
 </body>

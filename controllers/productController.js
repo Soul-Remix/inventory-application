@@ -97,7 +97,7 @@ const product_create_post = [
           errors: ["Password doesn't match"],
         });
       } else {
-        const isAvail = Product.findOne({ title: req.body.title });
+        const isAvail = await Product.findOne({ title: req.body.title });
         if (isAvail) {
           res.redirect(isAvail.url);
         } else {
@@ -112,13 +112,100 @@ const product_create_post = [
 
 // Update Product
 
-const product_update_get = (req, res) => {
-  res.send('not implemented');
+const product_update_get = async (req, res, next) => {
+  try {
+    const [product, categories] = await Promise.all([
+      Product.findById(req.params.id).populate('category'),
+      Category.find(),
+    ]);
+    if (!product) {
+      const err = new Error('Product not found');
+      err.status = 404;
+      return next(err);
+    } else {
+      res.render('product-update', {
+        title: 'Update product',
+        product,
+        categories,
+        errors: [],
+      });
+    }
+  } catch (err) {
+    return next(err);
+  }
 };
 
-const product_update_post = (req, res) => {
-  res.send('not implemented');
-};
+const product_update_post = [
+  body('title')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Enter a valid title'),
+  body('description')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Enter a valid description'),
+  body('price')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .isInt()
+    .withMessage('Enter a valid price'),
+  body('inStock')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .isInt()
+    .withMessage('Enter a valid in stock number'),
+  body('image')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage('Enter a valid image URL'),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      const id = req.params.id;
+      const product = new Product({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        inStock: req.body.inStock,
+        image: req.body.image,
+        category: req.body.category,
+        _id: id,
+      });
+      const [productFound, categories] = await Promise.all([
+        Product.findById(id),
+        Category.find(),
+      ]);
+      if (!productFound) {
+        const err = new Error('Product not found');
+        err.status = 404;
+        return next(err);
+      } else if (!errors.isEmpty()) {
+        res.render('product-update', {
+          title: 'Update Product',
+          product,
+          categories,
+          errors: errors.array(),
+        });
+      } else if (req.body.pass !== process.env.PASS) {
+        res.render('product-update', {
+          title: 'Update Product',
+          product,
+          categories,
+          errors: ["Password doesn't match"],
+        });
+      } else {
+        await Product.findByIdAndUpdate(id, product);
+        res.redirect(`/product/${product._id}`);
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
 
 // Delete Product
 

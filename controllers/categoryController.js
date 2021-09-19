@@ -121,6 +121,7 @@ const category_create_post = [
 const category_update_get = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
+    // Missing check
     res.render('category-update', {
       title: 'Update Category',
       category,
@@ -161,6 +162,7 @@ const category_update_post = [
         if (isAvail) {
           res.redirect(isAvail.url);
         } else {
+          // Missing check
           await Category.findByIdAndUpdate(req.params.id, category);
           res.redirect(`/category/${category._id}`);
         }
@@ -188,6 +190,7 @@ const category_delete_get = async (req, res, next) => {
         title: 'Delete Category',
         category,
         products,
+        errors: [],
       });
     }
   } catch (err) {
@@ -205,6 +208,13 @@ const category_delete_post = async (req, res, next) => {
       const err = new Error('Category not found');
       err.status = 404;
       return next(err);
+    } else if (req.body.pass !== process.env.PASS) {
+      res.render('category-delete', {
+        title: 'Delete Category',
+        category,
+        product,
+        errors: ["Password Doesn't Match"],
+      });
     } else {
       await Category.findByIdAndDelete(req.params.id);
       res.redirect('/categories');
