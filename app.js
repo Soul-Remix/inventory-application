@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -22,7 +22,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(helmet());
+//app.use(helmet());
 app.use(compression());
 app.use(logger('dev'));
 app.use(express.json());

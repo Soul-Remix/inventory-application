@@ -99,7 +99,7 @@ const category_create_post = [
         res.render('category-create', {
           title: 'Create Category',
           category,
-          errors: ["Password Doesn't Match"],
+          errors: [{ msg: "Password Doesn't Match" }],
         });
       } else {
         const isAvail = await Category.findOne({ name: req.body.name });
@@ -157,7 +157,7 @@ const category_update_post = [
         res.render('category-create', {
           title: 'Create Category',
           category,
-          errors: ["Password Doesn't Match"],
+          errors: [{ msg: "Password Doesn't Match" }],
         });
       } else {
         const isAvail = await Category.findOne({ name: req.body.name });
@@ -210,14 +210,18 @@ const category_delete_post = async (req, res, next) => {
         title: 'Delete Category',
         category,
         products,
-        errors: ["Password Doesn't Match"],
+        errors: [{ msg: "Password Doesn't Match" }],
       });
     } else if (products.length > 0) {
       res.render('category-delete', {
         title: 'Delete Category',
         category,
         products,
-        errors: ['Make sure to delete all products in selected category first'],
+        errors: [
+          {
+            msg: 'Make sure to delete all products in selected category first',
+          },
+        ],
       });
     } else {
       await Category.findByIdAndDelete(req.params.id);

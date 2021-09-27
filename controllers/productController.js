@@ -61,7 +61,6 @@ const product_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .isInt()
     .withMessage('Enter a valid price'),
   body('inStock')
     .trim()
@@ -97,7 +96,7 @@ const product_create_post = [
           title: 'Create Product',
           product,
           categories,
-          errors: ["Password doesn't match"],
+          errors: [{ msg: "Password doesn't match" }],
         });
       } else {
         const isAvail = await Product.findOne({ title: req.body.title });
@@ -151,7 +150,6 @@ const product_update_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .isInt()
     .withMessage('Enter a valid price'),
   body('inStock')
     .trim()
@@ -194,7 +192,7 @@ const product_update_post = [
           title: 'Update Product',
           product,
           categories,
-          errors: ["Password doesn't match"],
+          errors: [{ msg: "Password doesn't match" }],
         });
       } else {
         await Product.findByIdAndUpdate(id, product);
