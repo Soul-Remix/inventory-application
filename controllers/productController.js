@@ -61,6 +61,7 @@ const product_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
+    .isNumeric()
     .withMessage('Enter a valid price'),
   body('inStock')
     .trim()
@@ -150,6 +151,7 @@ const product_update_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
+    .isNumeric()
     .withMessage('Enter a valid price'),
   body('inStock')
     .trim()
